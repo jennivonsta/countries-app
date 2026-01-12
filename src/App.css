@@ -1,0 +1,91 @@
+/* ===== App layout ===== */
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  /* ===== Header ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 16px;
+  }
+  
+  .header__title {
+    font-size: 18px;
+    font-weight: 800;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .header__link {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* ===== Pages ===== */
+  .page {
+    padding: 24px 16px;
+  }
+  
+  .home {
+    padding: 24px 16px;
+  }
+  
+  /* ===== Countries Grid ===== */
+  .countries-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  /* tablet-ish */
+  @media (min-width: 600px) {
+    .countries-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* desktop-ish */
+  @media (min-width: 1000px) {
+    .countries-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* ===== Country Card ===== */
+  .country-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    background: white;
+  }
+  
+  .country-card__flag {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .country-card__body {
+    padding: 16px;
+  }
+  
+  .country-card__name {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  
+  .country-card__meta {
+    margin: 6px 0;
+    font-size: 14px;
+  }
+  
