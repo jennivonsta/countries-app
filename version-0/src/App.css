@@ -89,3 +89,49 @@
     font-size: 14px;
   }
   
+  /* ===== Controls (Search + Filter) ===== */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .controls__search,
+  .controls__select {
+    height: 56px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .controls__search {
+    width: 100%;
+  }
+  
+  .controls__select {
+    width: 220px;
+    align-self: flex-start;
+  }
+  
+  /* Desktop layout: search left, filter right */
+  @media (min-width: 900px) {
+    .controls {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .controls__search {
+      max-width: 520px;
+    }
+  
+    .controls__select {
+      align-self: auto;
+    }
+  }
+  
