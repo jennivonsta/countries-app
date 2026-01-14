@@ -1,137 +1,153 @@
-/* ===== App layout ===== */
+/* ===== Global layout reset ===== */
+/* Apply box-sizing globally so padding and borders are included in width/height */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Remove default browser margin around the page */
+body {
+  margin: 0;
+}
+
+/* ===== Header ===== */
+/* Header container: aligns title on the left and link on the right */
+.header {
+  display: flex;                     /* Use flexbox for layout */
+  justify-content: space-between;    /* Push items to opposite sides */
+  align-items: center;               /* Vertically center items */
+  padding: 24px 16px;                /* Space inside the header */
+}
+
+/* Title link styling */
+.header__title {
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;             /* Remove underline from link */
+  color: inherit;                    /* Use inherited text color */
+}
+
+/* Saved Countries link styling */
+.header__link {
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Pages ===== */
+/* Generic page padding (used for placeholder pages) */
+.page {
+  padding: 24px 16px;
+}
+
+/* Home page padding */
+.home {
+  padding: 24px 16px;
+}
+
+/* ===== Countries Grid ===== */
+/* Grid that holds all the CountryCard components */
+.countries-grid {
+  display: grid;                     /* Use CSS Grid for layout */
+  grid-template-columns: 1fr;        /* One column by default (mobile-first) */
+  gap: 32px;                         /* Space between cards */
+}
+
+/* Tablet layout: show 2 columns */
+@media (min-width: 600px) {
+  .countries-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  body {
-    margin: 0;
+}
+
+/* Desktop layout: show 4 columns */
+@media (min-width: 1000px) {
+  .countries-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
-  
-  /* ===== Header ===== */
-  .header {
-    display: flex;
+}
+
+/* ===== Country Card ===== */
+/* Card container styling */
+.country-card {
+  border-radius: 8px;                /* Rounded corners */
+  overflow: hidden;                  /* Clip image corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Subtle card shadow */
+  background: white;
+}
+
+/* Flag image inside the card */
+.country-card__flag {
+  width: 100%;                       /* Full width of card */
+  height: 160px;                     /* Fixed height for consistency */
+  object-fit: cover;                 /* Crop image nicely */
+  display: block;                    /* Remove inline image spacing */
+}
+
+/* Card content wrapper */
+.country-card__body {
+  padding: 16px;
+}
+
+/* Country name styling */
+.country-card__name {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* Population, Region, Capital text */
+.country-card__meta {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* ===== Controls (Search + Filter) ===== */
+/* Container for search input and dropdown */
+.controls {
+  display: flex;
+  flex-direction: column;            /* Stack vertically on mobile */
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Shared styles for search input and select dropdown */
+.controls__search,
+.controls__select {
+  height: 56px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  font-size: 14px;
+  outline: none;                     /* Remove default focus outline */
+}
+
+/* Search bar spans full width */
+.controls__search {
+  width: 100%;
+}
+
+/* Dropdown has fixed width */
+.controls__select {
+  width: 220px;
+  align-self: flex-start;            /* Align left on mobile */
+}
+
+/* Desktop layout: search on left, filter on right */
+@media (min-width: 900px) {
+  .controls {
+    flex-direction: row;             /* Switch to horizontal layout */
     justify-content: space-between;
     align-items: center;
-    padding: 24px 16px;
   }
-  
-  .header__title {
-    font-size: 18px;
-    font-weight: 800;
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .header__link {
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* ===== Pages ===== */
-  .page {
-    padding: 24px 16px;
-  }
-  
-  .home {
-    padding: 24px 16px;
-  }
-  
-  /* ===== Countries Grid ===== */
-  .countries-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  
-  /* tablet-ish */
-  @media (min-width: 600px) {
-    .countries-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  /* desktop-ish */
-  @media (min-width: 1000px) {
-    .countries-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  
-  /* ===== Country Card ===== */
-  .country-card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    background: white;
-  }
-  
-  .country-card__flag {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .country-card__body {
-    padding: 16px;
-  }
-  
-  .country-card__name {
-    margin: 0 0 12px 0;
-    font-size: 18px;
-    font-weight: 800;
-  }
-  
-  .country-card__meta {
-    margin: 6px 0;
-    font-size: 14px;
-  }
-  
-  /* ===== Controls (Search + Filter) ===== */
-.controls {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  
-  .controls__search,
-  .controls__select {
-    height: 56px;
-    padding: 0 18px;
-    border: none;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    font-size: 14px;
-    outline: none;
-  }
-  
+
   .controls__search {
-    width: 100%;
+    max-width: 520px;                /* Prevent overly wide search bar */
   }
-  
+
   .controls__select {
-    width: 220px;
-    align-self: flex-start;
+    align-self: auto;
   }
-  
-  /* Desktop layout: search left, filter right */
-  @media (min-width: 900px) {
-    .controls {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  
-    .controls__search {
-      max-width: 520px;
-    }
-  
-    .controls__select {
-      align-self: auto;
-    }
-  }
-  
+}
