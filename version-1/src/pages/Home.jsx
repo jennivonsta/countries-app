@@ -1,71 +1,34 @@
-import { useMemo, useState } from "react";
+
+
+// Import the CountryCard component that displays each country
 import CountryCard from "../components/CountryCard";
 
+// Home component receives countriesData as a prop from App.jsx
 function Home({ countriesData }) {
-  const [searchText, setSearchText] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
-
-  // Build region options from the data (Africa, Americas, Asia, Europe, Oceania, etc.)
-  const regionOptions = useMemo(() => {
-    const regions = new Set();
-
-    countriesData.forEach((country) => {
-      if (country.region) regions.add(country.region);
-    });
-
-    return Array.from(regions).sort();
-  }, [countriesData]);
-
-  // Filter countries by search + region
-  const filteredCountries = useMemo(() => {
-    const search = searchText.trim().toLowerCase();
-
-    return countriesData.filter((country) => {
-      const name = country.name?.common?.toLowerCase() || "";
-      const matchesSearch = search === "" ? true : name.includes(search);
-
-      const matchesRegion =
-        selectedRegion === "" ? true : country.region === selectedRegion;
-
-      return matchesSearch && matchesRegion;
-    });
-  }, [countriesData, searchText, selectedRegion]);
+  // If the countries array is empty, it usually means:
+  // - the API is still loading, or
+  // - there was an error and data hasn't been set yet
+  // This prevents errors from trying to map over undefined
+  if (!countriesData || countriesData.length === 0) {
+    return <p>Loading countries...</p>;
+  }
 
   return (
     <main className="home">
-      {/* Controls row */}
-      <section className="controls">
-        <input
-          className="controls__search"
-          type="text"
-          placeholder="Search for a country..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-
-        <select
-          className="controls__select"
-          value={selectedRegion}
-          onChange={(e) => setSelectedRegion(e.target.value)}
-        >
-          <option value="">Filter by Region</option>
-          {regionOptions.map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
-          ))}
-        </select>
-      </section>
-
-      {/* Cards */}
-      <div className="countries-grid">
-        {filteredCountries.map((country) => (
-          <CountryCard key={country.cca3} country={country} />
+      {/* Container that holds all country cards */}
+      <section className="countries-grid">
+        {/* Loop over the countriesData array */}
+        {/* For each country, render one CountryCard */}
+        {countriesData.map((country) => (
+          <CountryCard
+            key={country.cca3} // Unique key required by React
+            country={country} // Pass the full country object to CountryCard
+          />
         ))}
-      </div>
+      </section>
     </main>
   );
 }
 
+// Export Home so it can be used in App.jsx routes
 export default Home;
-
