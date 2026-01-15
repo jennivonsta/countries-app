@@ -1,5 +1,3 @@
-// version-1/src/App.jsx
-
 // Import React hooks:
 // useState lets us store data in component state (countries list)
 // useEffect lets us run code when the component loads (fetch countries on page load)
