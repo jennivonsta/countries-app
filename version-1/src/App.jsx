@@ -23,16 +23,17 @@ import localData from "../localData";
 function App() {
   // Create a state variable called "countries"
   // countries starts as an empty array []
+  // Holds the countries array used across the whole app
   // setCountries is the function we use to update it
   const [countries, setCountries] = useState([]);
 
-  // useEffect runs once when the App component first loads
+  // useEffect runs once when the App component first loads (when page loads)
   // (because the dependency array is empty)
   useEffect(() => {
     // Define an async function inside useEffect so we can use await
     async function fetchCountries() {
       try {
-        // Make a request to the REST Countries API using the required URL/fields
+        // Make a request to the REST Countries API using the required URL/fields (only the fields we want)
         // This returns an array of country objects with fields like:
         // name, flags, population, capital, region, cca3, borders
         const response = await fetch(
@@ -56,7 +57,7 @@ function App() {
         // log the error for debugging
         console.error("API failed, using local data instead:", error);
 
-        // Use localData as a backup so the app still works
+        // Use localData as a backup so the app still works if the API fails
         setCountries(localData);
       }
     }
