@@ -40,6 +40,53 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+/* Search + Region Filter row */
+.controls {
+  padding: 40px 70px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Search input */
+.controls__search {
+  width: 480px;
+  max-width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Dropdown */
+.controls__filter {
+  width: 200px;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile: stack the controls like the demo */
+@media (max-width: 700px) {
+  .controls {
+    padding: 24px 18px 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls__search,
+  .controls__filter {
+    width: 100%;
+  }
+}
+
+
 /* Country card style */
 .country-card {
   background: white;
