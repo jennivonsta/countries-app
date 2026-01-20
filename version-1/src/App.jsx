@@ -16,6 +16,8 @@ import CountryDetail from "./pages/CountryDetail";
 // Import backup data from localData.js (used if the API fails)
 // NOTE: localData.js is in the project root, so from src/App.jsx we go up one folder: ../localData
 import localData from "../localData";
+import "./App.css";
+
 
 // Main App component
 function App() {
