@@ -1,0 +1,25 @@
+/* version-1/src/index.css */
+
+/* Basic reset so spacing is predictable */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #fafafa;
+  color: #111;
+}
+
+/* Make links not look like blue underlined default links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Images behave nicely in responsive layouts */
+img {
+  max-width: 100%;
+  display: block;
+}

@@ -1,0 +1,192 @@
+/* version-1/src/App.css */
+
+/* Header (top bar) */
+.header {
+  height: 80px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 70px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* "Where in the world?" */
+.header__title {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+/* "Saved Countries" link */
+.header__link {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Generic page wrapper for non-home pages */
+.page {
+  padding: 40px 70px;
+}
+
+/* Countries grid container on Home page */
+.countries-grid {
+  padding: 40px 70px;
+
+  display: grid;
+  gap: 50px;
+
+  /* Responsive grid: fits as many 260px cards as possible */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Search + Region Filter row */
+.controls {
+  padding: 40px 70px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Search input */
+.controls__search {
+  width: 480px;
+  max-width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Dropdown */
+.controls__filter {
+  width: 200px;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile: stack the controls like the demo */
+@media (max-width: 700px) {
+  .controls {
+    padding: 24px 18px 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls__search,
+  .controls__filter {
+    width: 100%;
+  }
+}
+
+
+/* Country card style */
+.country-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+  /* Makes cards all feel consistent */
+  min-height: 340px;
+}
+
+/* Flag image takes the top part of the card */
+.country-card__flag {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+/* Inside of the card (text area) */
+.country-card__body {
+  padding: 22px 22px 26px;
+}
+
+.country-card__name {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* The Population/Region/Capital lines */
+.country-card__meta {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* SavedCountries form styling */
+.profile-form {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.profile-form__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.profile-form__input,
+.profile-form__textarea {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.profile-form__textarea {
+  resize: vertical;
+}
+
+.profile-form__button {
+  margin-top: 8px;
+  width: 160px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2b6cb0;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-form__button:hover {
+  filter: brightness(0.95);
+}
+
+/* Mobile adjustments to match the stacked demo look */
+@media (max-width: 700px) {
+  .header {
+    padding: 0 18px;
+    height: 70px;
+  }
+
+  .header__title {
+    font-size: 18px;
+  }
+
+  .countries-grid {
+    padding: 24px 18px;
+    gap: 24px;
+  }
+
+  .page {
+    padding: 24px 18px;
+  }
+}
