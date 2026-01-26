@@ -1,17 +1,13 @@
 // version-1/src/pages/Home.jsx
 
-// useState stores the user's search text + selected region
 import { useState } from "react";
-
-// CountryCard shows one country card
 import CountryCard from "../components/CountryCard";
 
 function Home({ countriesData }) {
-  // State for the search input (example: "canada")
+  // Search text state
   const [searchTerm, setSearchTerm] = useState("");
 
-  // State for the region dropdown (example: "Europe")
-  // Empty string means "no filter" (show all regions)
+  // Region dropdown state ("" means no region filter)
   const [selectedRegion, setSelectedRegion] = useState("");
 
   // If data hasn't loaded yet, show a loading message
@@ -19,26 +15,21 @@ function Home({ countriesData }) {
     return <p className="page">Loading countries...</p>;
   }
 
-  // Filter the countries based on:
-  // 1) searchTerm (matches country name)
-  // 2) selectedRegion (matches region)
+  // Filter countries based on search + region
   const filteredCountries = countriesData.filter((country) => {
-    // Convert both to lowercase so search isn't case-sensitive
     const matchesSearch = country.name.common
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
 
-    // If no region is selected, this should be true for all countries
     const matchesRegion =
       selectedRegion === "" || country.region === selectedRegion;
 
-    // Country must match BOTH conditions to show
     return matchesSearch && matchesRegion;
   });
 
   return (
     <main className="home">
-      {/* Top controls row: search input + region dropdown */}
+      {/* Top controls row */}
       <section className="controls">
         {/* Search input */}
         <input
@@ -55,7 +46,6 @@ function Home({ countriesData }) {
           value={selectedRegion}
           onChange={(e) => setSelectedRegion(e.target.value)}
         >
-          {/* Empty value = show all */}
           <option value="">Filter by Region</option>
           <option value="Africa">Africa</option>
           <option value="Americas">Americas</option>
@@ -66,7 +56,7 @@ function Home({ countriesData }) {
         </select>
       </section>
 
-      {/* Grid of country cards */}
+      {/* Grid of cards */}
       <section className="countries-grid">
         {filteredCountries.map((country) => (
           <CountryCard key={country.cca3} country={country} />

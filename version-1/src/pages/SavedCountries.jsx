@@ -1,66 +1,52 @@
+// version-1/src/pages/SavedCountries.jsx
 
-
-// useState lets us store form input values in state
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-// SavedCountries page
-// It receives countriesData from App.jsx (Version 1 requirement),
-// even if we don't use it much yet.
-function SavedCountries({ countriesData }) {
-  // State variables for each form field
-  const [name, setName] = useState(""); // stores the user's name
-  const [email, setEmail] = useState(""); // stores the user's email
-  const [country, setCountry] = useState(""); // stores the user's selected country
-  const [bio, setBio] = useState(""); // stores the user's bio text
+function SavedCountries({ countriesData, savedCountryCodes, toggleSaveCountry }) {
+  // Profile form state
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [bio, setBio] = useState("");
 
-  // This function runs when the form is submitted
-  function handleSubmit(event) {
-    // Prevents the page from refreshing (default form behavior)
-    event.preventDefault();
+  // When user submits the profile form
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    // Put the user's form info into one object
-    const profileData = {
-      name,
-      email,
-      country,
-      bio,
-    };
-
-    // For now we just log the data to prove the form works
-    // (SInce Saving to a database is NOT required here)
+    const profileData = { name, email, country, bio };
     console.log("Submitted Profile:", profileData);
 
-    // Optional: clear the form after submit
+    // Clear inputs after submit
     setName("");
     setEmail("");
     setCountry("");
     setBio("");
   }
 
+  // Convert saved cca3 codes into full country objects
+  const savedCountries = savedCountryCodes
+    .map((code) => countriesData.find((c) => c.cca3 === code))
+    .filter(Boolean);
+
   return (
     <main className="page">
-      {/* Page title */}
-      <h1>My Saved Countries</h1>
+      <h1>Saved Countries</h1>
 
-      {/* Section title like in the designs */}
       <h2>My Profile</h2>
 
-      {/* Form starts here */}
       <form className="profile-form" onSubmit={handleSubmit}>
-        {/* NAME FIELD */}
         <label className="profile-form__label">
           Name
           <input
             className="profile-form__input"
-            type="text"
-            value={name} // input shows whatever is in state
-            onChange={(e) => setName(e.target.value)} // update state as user types
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Enter your name"
             required
           />
         </label>
 
-        {/* EMAIL FIELD */}
         <label className="profile-form__label">
           Email
           <input
@@ -73,14 +59,10 @@ function SavedCountries({ countriesData }) {
           />
         </label>
 
-        {/* COUNTRY FIELD */}
-        {/* This is a simple text input that matches the assignment requirement.
-            can turn it into a dropdown using countriesData later. */}
         <label className="profile-form__label">
           Country
           <input
             className="profile-form__input"
-            type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             placeholder="Enter your country"
@@ -88,7 +70,6 @@ function SavedCountries({ countriesData }) {
           />
         </label>
 
-        {/* BIO FIELD */}
         <label className="profile-form__label">
           Bio
           <textarea
@@ -100,11 +81,43 @@ function SavedCountries({ countriesData }) {
           />
         </label>
 
-        {/* SUBMIT BUTTON */}
         <button className="profile-form__button" type="submit">
           Submit Profile
         </button>
       </form>
+
+      <hr style={{ margin: "40px 0" }} />
+
+      <h2>My Saved Countries</h2>
+
+      {savedCountries.length === 0 ? (
+        <p>No saved countries yet. Go save some!</p>
+      ) : (
+        <div className="saved-grid">
+          {savedCountries.map((c) => (
+            <div className="saved-card" key={c.cca3}>
+              <img
+                className="saved-card__flag"
+                src={c.flags.png}
+                alt={c.name.common}
+              />
+
+              <div className="saved-card__body">
+                <Link to={`/country-detail/${c.name.common}`}>
+                  <h3 className="saved-card__name">{c.name.common}</h3>
+                </Link>
+
+                <button
+                  className="saved-card__button"
+                  onClick={() => toggleSaveCountry(c.cca3)}
+                >
+                  Unsave
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
