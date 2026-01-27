@@ -44,6 +44,12 @@ function SavedCountries({
 
       // Save newest user in state so UI can show "Welcome back, ___!"
       setNewestUser(user);
+
+      // Optional: pre-fill form fields so user can see newest profile data
+      setName(user.name || "");
+      setEmail(user.email || "");
+      setCountryName(user.country_name || "");
+      setBio(user.bio || "");
     } catch (err) {
       console.error(err);
       setUserError("Could not load user info.");
@@ -84,9 +90,12 @@ function SavedCountries({
       await res.text();
 
       // ✅ Success: refresh newest user so heading updates
+      // (Also re-fills the form with newest saved user data above)
       await fetchNewestUser();
 
       // ✅ Clear form fields
+      // If your instructor expects the form to clear after submit, keep these.
+      // If you want the form to remain filled with newest user data, remove these 4 lines.
       setName("");
       setEmail("");
       setCountryName("");
@@ -130,7 +139,9 @@ function SavedCountries({
               />
 
               <div className="saved-card__body">
-                <Link to={`/country-detail/${encodeURIComponent(c.name.common)}`}>
+                <Link
+                  to={`/country-detail/${encodeURIComponent(c.name.common)}`}
+                >
                   <h3 className="saved-card__name">{c.name.common}</h3>
                 </Link>
 
@@ -142,8 +153,10 @@ function SavedCountries({
                   Capital: {c.capital?.[0] || "N/A"}
                 </p>
 
+                {/* Unsave button: removes this country from backend saved list */}
                 <button
                   className="saved-card__button"
+                  type="button"
                   onClick={() => toggleSaveCountryByName(c.name.common)}
                 >
                   Unsave
@@ -158,9 +171,7 @@ function SavedCountries({
 
       {/* Welcome message requirement */}
       <h2>
-        {newestUser?.name
-          ? `Welcome back, ${newestUser.name}!`
-          : "Welcome back, User!"}
+        {newestUser?.name ? `Welcome back, ${newestUser.name}!` : "Welcome back, User!"}
       </h2>
 
       <h3>My Profile</h3>
