@@ -128,7 +128,7 @@ function CountryDetail({
             <strong>Capital:</strong> {country.capital?.[0] || "N/A"}
           </p>
 
-          {/* ✅ View Count display (Milestone requirement) */}
+          {/*  View Count display (Milestone requirement) */}
           <p className="detail__meta">
             <strong>Viewed:</strong>{" "}
             {countError
