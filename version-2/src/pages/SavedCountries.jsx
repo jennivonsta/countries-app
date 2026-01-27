@@ -33,7 +33,7 @@ function SavedCountries({
 
       const data = await res.json();
 
-      // ✅ Some backends return an object, others return [object]
+      //  Some backends return an object, others return [object]
       const user = Array.isArray(data) ? data[0] : data;
 
       // If no user exists yet, keep newestUser as null
