@@ -1,4 +1,4 @@
-// version-1/src/pages/Home.jsx
+//Same as Version 1
 
 import { useState } from "react";
 import CountryCard from "../components/CountryCard";

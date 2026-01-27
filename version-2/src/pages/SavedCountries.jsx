@@ -89,11 +89,11 @@ function SavedCountries({
       // Backend returns plain text (not JSON)
       await res.text();
 
-      // ✅ Success: refresh newest user so heading updates
+      //  refresh newest user so heading updates
       // (Also re-fills the form with newest saved user data above)
       await fetchNewestUser();
 
-      // ✅ Clear form fields
+      // Clear form fields
       // If your instructor expects the form to clear after submit, keep these.
       // If you want the form to remain filled with newest user data, remove these 4 lines.
       setName("");
@@ -115,7 +115,7 @@ function SavedCountries({
       .filter(Boolean);
   }, [savedCountryNames, countriesData]);
 
-  // Refresh saved countries list on mount (optional)
+  // Refresh saved countries list on mount (not required, just extra)
   useEffect(() => {
     refreshSavedCountries?.();
   }, [refreshSavedCountries]);

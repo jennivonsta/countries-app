@@ -1,4 +1,4 @@
-// version-1/src/components/CountryCard.jsx
+// same as version-1/src/components/CountryCard.jsx
 
 import { Link } from "react-router-dom";
 
