@@ -1,6 +1,5 @@
 /* version-1/src/App.css */
 
-/* Header (top bar) */
 .header {
   height: 80px;
   background: white;
@@ -12,32 +11,18 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* "Where in the world?" */
 .header__title {
   font-size: 24px;
   font-weight: 800;
 }
 
-/* "Saved Countries" link */
 .header__link {
   font-size: 14px;
   font-weight: 600;
 }
 
-/* Generic page wrapper for non-home pages */
 .page {
   padding: 40px 70px;
-}
-
-/* Countries grid container on Home page */
-.countries-grid {
-  padding: 40px 70px;
-
-  display: grid;
-  gap: 50px;
-
-  /* Responsive grid: fits as many 260px cards as possible */
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 /* Search + Region Filter row */
@@ -49,7 +34,6 @@
   gap: 30px;
 }
 
-/* Search input */
 .controls__search {
   width: 480px;
   max-width: 100%;
@@ -61,7 +45,6 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Dropdown */
 .controls__filter {
   width: 200px;
   padding: 14px 16px;
@@ -72,41 +55,28 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Mobile: stack the controls like the demo */
-@media (max-width: 700px) {
-  .controls {
-    padding: 24px 18px 0;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .controls__search,
-  .controls__filter {
-    width: 100%;
-  }
+/* Cards grid */
+.countries-grid {
+  padding: 40px 70px;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-
-/* Country card style */
 .country-card {
   background: white;
   border-radius: 10px;
   overflow: hidden;
-
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-
-  /* Makes cards all feel consistent */
   min-height: 340px;
 }
 
-/* Flag image takes the top part of the card */
 .country-card__flag {
   width: 100%;
   height: 160px;
   object-fit: cover;
 }
 
-/* Inside of the card (text area) */
 .country-card__body {
   padding: 22px 22px 26px;
 }
@@ -117,14 +87,81 @@
   font-weight: 800;
 }
 
-/* The Population/Region/Capital lines */
 .country-card__meta {
   margin: 8px 0;
   font-size: 14px;
   line-height: 1.4;
 }
 
-/* SavedCountries form styling */
+/* Country Detail layout */
+.detail {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: start;
+  margin-top: 30px;
+}
+
+.detail__flag {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.detail__name {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.detail__meta {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.back-button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.save-button {
+  width: 90px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  margin: 10px 0 18px;
+}
+
+/* Border countries (links only) */
+.borders {
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.borders__list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.border-pill {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+}
+
+/* SavedCountries profile form */
 .profile-form {
   max-width: 520px;
   display: flex;
@@ -170,7 +207,49 @@
   filter: brightness(0.95);
 }
 
-/* Mobile adjustments to match the stacked demo look */
+/* Saved countries grid */
+.saved-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.saved-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.saved-card__flag {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.saved-card__body {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.saved-card__name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.saved-card__button {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+/* Mobile */
 @media (max-width: 700px) {
   .header {
     padding: 0 18px;
@@ -181,6 +260,17 @@
     font-size: 18px;
   }
 
+  .controls {
+    padding: 24px 18px 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls__search,
+  .controls__filter {
+    width: 100%;
+  }
+
   .countries-grid {
     padding: 24px 18px;
     gap: 24px;
@@ -188,5 +278,10 @@
 
   .page {
     padding: 24px 18px;
+  }
+
+  .detail {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }

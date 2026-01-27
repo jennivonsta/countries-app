@@ -1,59 +1,118 @@
+import { useEffect, useMemo, useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
-// useParams lets us read values from the URL
-// Example URL: /country-detail/France
-import { useParams } from "react-router-dom";
-
-// CountryDetail receives countriesData as a prop from App.jsx
-function CountryDetail({ countriesData }) {
-  // useParams returns an object with all route parameters
-  // Because our route is "/country-detail/:countryName",
-  // we can access the value using .countryName
+function CountryDetail({ countriesData, savedCountryNames, toggleSaveCountryByName }) {
+  const navigate = useNavigate();
   const { countryName } = useParams();
 
-  // Log the country name from the URL for debugging
-  console.log("Country from URL:", countryName);
+  const decodedCountryName = useMemo(() => {
+    return decodeURIComponent(countryName || "");
+  }, [countryName]);
 
-  // Find the matching country object from the countriesData array
-  // We compare the name from the URL to each country's common name
-  const country = countriesData.find(
-    (c) => c.name.common === countryName
-  );
+  const country = useMemo(() => {
+    return countriesData.find((c) => c.name.common === decodedCountryName);
+  }, [countriesData, decodedCountryName]);
 
-  // If the country is not found yet (API still loading),
-  // show a loading message instead of crashing the app
+  // ----------------------------
+  // VIEW COUNT (Version 2 requirement)
+  // ----------------------------
+  const [viewCount, setViewCount] = useState(null);
+  const [countError, setCountError] = useState("");
+
+  useEffect(() => {
+    if (!country) return;
+
+    async function updateViewCount() {
+      try {
+        setCountError("");
+
+        const res = await fetch("/api/update-one-country-count", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ country_name: country.name.common }),
+        });
+
+        if (!res.ok) throw new Error(`View count failed: ${res.status}`);
+
+        const data = await res.json();
+        setViewCount(data.count);
+      } catch (err) {
+        console.error(err);
+        setCountError("Could not load view count.");
+      }
+    }
+
+    updateViewCount();
+  }, [country]);
+
   if (!country) {
-    return <p>Loading country details...</p>;
+    return <p className="page">Loading country details...</p>;
   }
+
+  const isSaved = savedCountryNames.includes(country.name.common);
+
+  const borderCountries = (country.borders || [])
+    .map((code) => countriesData.find((c) => c.cca3 === code))
+    .filter(Boolean);
 
   return (
     <main className="page">
-      {/* Page title */}
-      <h1>{country.name.common}</h1>
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
 
-      {/* Country flag */}
-      <img
-        src={country.flags.png}
-        alt={country.name.common}
-        style={{ maxWidth: "300px" }}
-      />
+      <section className="detail">
+        <img className="detail__flag" src={country.flags.png} alt={country.name.common} />
 
-      {/* Country details */}
-      <p>
-        <strong>Population:</strong>{" "}
-        {country.population.toLocaleString()}
-      </p>
+        <div className="detail__info">
+          <h1 className="detail__name">{country.name.common}</h1>
 
-      <p>
-        <strong>Region:</strong> {country.region}
-      </p>
+          {/* Save button calls backend toggle */}
+          <button
+            className="save-button"
+            onClick={() => toggleSaveCountryByName(country.name.common)}
+          >
+            {isSaved ? "Saved" : "Save"}
+          </button>
 
-      <p>
-        <strong>Capital:</strong>{" "}
-        {country.capital?.[0] || "N/A"}
-      </p>
+          <p className="detail__meta">
+            <strong>Population:</strong> {country.population.toLocaleString()}
+          </p>
+          <p className="detail__meta">
+            <strong>Region:</strong> {country.region}
+          </p>
+          <p className="detail__meta">
+            <strong>Capital:</strong> {country.capital?.[0] || "N/A"}
+          </p>
+
+          <p className="detail__meta">
+            <strong>Viewed:</strong>{" "}
+            {countError ? countError : viewCount === null ? "Loading..." : `${viewCount} times`}
+          </p>
+
+          <div className="borders">
+            <strong>Border Countries:</strong>
+
+            <div className="borders__list">
+              {borderCountries.length === 0 ? (
+                <p className="detail__meta">None</p>
+              ) : (
+                borderCountries.map((b) => (
+                  <Link
+                    key={b.cca3}
+                    className="border-pill"
+                    to={`/country-detail/${encodeURIComponent(b.name.common)}`}
+                  >
+                    {b.name.common}
+                  </Link>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
 
-// Export the component so it can be used in App.jsx routes
 export default CountryDetail;
