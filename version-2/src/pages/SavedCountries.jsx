@@ -1,4 +1,10 @@
+// React hooks:
+// useState  -> stores values that can change (form inputs, newest user, error messages)
+// useEffect -> runs code at specific times (ex: when the page loads)
+// useMemo   -> calculates derived data efficiently (ex: converting saved names to country objects)
 import { useEffect, useMemo, useState } from "react";
+
+// Link lets us navigate to another route without refreshing the whole page
 import { Link } from "react-router-dom";
 
 function SavedCountries({
@@ -8,35 +14,44 @@ function SavedCountries({
   refreshSavedCountries,
 }) {
   // ----------------------------
-  // PROFILE FORM STATE
+  // PROFILE FORM STATE (controlled inputs)
   // ----------------------------
+  // Each input field has state so React controls the value shown in the form.
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [countryName, setCountryName] = useState("");
   const [bio, setBio] = useState("");
 
   // newestUser = newest user stored in backend
+  // Used for: "Welcome back, {newestUser.name}!"
   const [newestUser, setNewestUser] = useState(null);
 
   // userError = any error message shown under the form title
   const [userError, setUserError] = useState("");
 
   // ----------------------------
-  // GET newest user (works whether backend returns object OR array)
+  // GET newest user (GET request)
   // ----------------------------
+  // This function pulls the newest user from the backend so we can display it.
+  // It also pre-fills the form with the newest user's data (optional UX).
   async function fetchNewestUser() {
     try {
+      // Clear any previous error before making the request
       setUserError("");
 
+      // GET request (retrieve data)
       const res = await fetch("/api/get-newest-user");
+
+      // If response is not ok, throw an error so we go to catch
       if (!res.ok) throw new Error(`Failed newest user GET: ${res.status}`);
 
+      // The backend returns JSON for this endpoint
       const data = await res.json();
 
-      //  Some backends return an object, others return [object]
+      // Some backends return an object, others return [object]
       const user = Array.isArray(data) ? data[0] : data;
 
-      // If no user exists yet, keep newestUser as null
+      // If no user exists yet, keep newestUser as null and stop here
       if (!user || !user.name) {
         setNewestUser(null);
         return;
@@ -62,15 +77,20 @@ function SavedCountries({
   }, []);
 
   // ----------------------------
-  // POST user on submit
+  // POST user on submit (POST request)
   // ----------------------------
+  // This runs when the user clicks the Submit button.
+  // POST is used because we are SENDING data to the server to CREATE/STORE a new user.
   async function handleSubmit(e) {
+    // Prevent the browser from refreshing the page
     e.preventDefault();
 
     try {
+      // Clear previous error before making the POST request
       setUserError("");
 
-      // Backend expects: name, email, country_name, bio
+      // Backend expects these exact keys in the request body:
+      // name, email, country_name, bio
       const body = {
         name,
         email,
@@ -78,24 +98,31 @@ function SavedCountries({
         bio,
       };
 
+      // ============================================================
+      // IMPORTANT PART: THE POST REQUEST TO PRESENT
+      // Endpoint: POST /api/add-one-user
+      // Purpose: Send profile form data to backend to create/store a user
+      // ============================================================
       const res = await fetch("/api/add-one-user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        method: "POST", // POST because we are creating/storing data
+        headers: { "Content-Type": "application/json" }, // Tell backend we are sending JSON
+        body: JSON.stringify(body), // Convert JS object into JSON string for the request
       });
+      // ============================================================
 
+      // If the backend responds with an error status, throw so catch runs
       if (!res.ok) throw new Error(`Add user failed: ${res.status}`);
 
-      // Backend returns plain text (not JSON)
+      // This backend returns plain text (not JSON) for this POST endpoint
       await res.text();
 
-      //  refresh newest user so heading updates
-      // (Also re-fills the form with newest saved user data above)
+      // After we POST a new user, we GET the newest user again
+      // so the UI updates with the most current saved user data.
       await fetchNewestUser();
 
-      // Clear form fields
-      // If your instructor expects the form to clear after submit, keep these.
-      // If you want the form to remain filled with newest user data, remove these 4 lines.
+      // Clear form fields after submit (optional)
+      // If you want the form to remain filled with newest user data,
+      // remove these 4 lines.
       setName("");
       setEmail("");
       setCountryName("");
@@ -109,10 +136,12 @@ function SavedCountries({
   // ----------------------------
   // Convert saved country NAMES into full country objects
   // ----------------------------
+  // savedCountryNames (from backend) only includes country names.
+  // We convert those names into the full objects so we can show flags, population, etc.
   const savedCountries = useMemo(() => {
     return savedCountryNames
       .map((name) => countriesData.find((c) => c.name.common === name))
-      .filter(Boolean);
+      .filter(Boolean); // remove undefined results if a match isn't found
   }, [savedCountryNames, countriesData]);
 
   // Refresh saved countries list on mount (not required, just extra)
@@ -120,6 +149,9 @@ function SavedCountries({
     refreshSavedCountries?.();
   }, [refreshSavedCountries]);
 
+  // ----------------------------
+  // RENDER UI
+  // ----------------------------
   return (
     <main className="page">
       <h1>Saved Countries</h1>
@@ -139,9 +171,8 @@ function SavedCountries({
               />
 
               <div className="saved-card__body">
-                <Link
-                  to={`/country-detail/${encodeURIComponent(c.name.common)}`}
-                >
+                {/* Link to this country's detail page */}
+                <Link to={`/country-detail/${encodeURIComponent(c.name.common)}`}>
                   <h3 className="saved-card__name">{c.name.common}</h3>
                 </Link>
 
@@ -171,7 +202,9 @@ function SavedCountries({
 
       {/* Welcome message requirement */}
       <h2>
-        {newestUser?.name ? `Welcome back, ${newestUser.name}!` : "Welcome back, User!"}
+        {newestUser?.name
+          ? `Welcome back, ${newestUser.name}!`
+          : "Welcome back, User!"}
       </h2>
 
       <h3>My Profile</h3>
@@ -179,6 +212,7 @@ function SavedCountries({
       {/* Error message if form submit or newest user fetch fails */}
       {userError && <p className="error">{userError}</p>}
 
+      {/* Profile form. onSubmit triggers handleSubmit (POST request) */}
       <form className="profile-form" onSubmit={handleSubmit}>
         <label className="profile-form__label">
           Full Name
