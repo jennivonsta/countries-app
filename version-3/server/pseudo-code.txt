@@ -21,6 +21,8 @@ If you're having trouble finding it, try checking your submission to assignment 
 
 🔗 My Countries App SQL DB Fiddle Link: _https://www.db-fiddle.com/f/3ZKMkRcDx9BoM4VL6QiLRK/3_
 
+Your postgreSQL is was deployed on NEON! That's where your create table constraints for the form are! The email for the form is 
+
 -------------------------------------
 📁 STEP 2: MATCH YOUR SQL TO API ENDPOINTS
 -------------------------------------

@@ -47,13 +47,16 @@ Once you're done filling out the template, paste it into your Github repo's main
 
 ## 📌 Project Description & Purpose
 
-This project is ___________
+This project is a full-stack Countries App that allows users to explore countries, save their favorites, and track how many times they view each country.
+
+The purpose of this project is to practice building a complete full-stack application by connecting a React frontend to a custom-built Express server and a PostgreSQL database. This project demonstrates how data flows from the frontend, through an API, and into a database.
 
 ## 🚀 Live Site
 
 Here's the link to view the live app: ___________
 
 ## 🖼️ Screenshots
+
 
 Here is where you'll include a screenshot of your project to show it off! 
 
@@ -68,62 +71,81 @@ Instructions to include a screenshot into your README file:
 ## ✨ Features
 
 This is what you can do on the app: 
-- ____________
-- ____________
-- ____________
-- ____________
+
+-Search for countries and filter by region
+-View detailed information about each country
+-Save your favorite countries
+-View a list of saved countries
+-Track how many times you’ve viewed each country
+-Submit your name and see a personalized welcome message
 
 ## 🛠️ Tech Stack
 
 **Frontend**
 
-- **Languages:** ___________
-- **Framework:** ___________
-- **Deployment:** ___________
+- **Languages:** JavaScript React, HTML, CSS
+- **Framework:** React (with Vite)
+- **Deployment:** Netlify
 
 **Server/API**
 
-- **Languages:** ___________
-- **Framework:** ___________
-- **Deployment:** ___________
+- **Languages:** JavaScript (Node.js)
+- **Framework:** Express
+- **Deployment:** Localhost (for development)
 
 **Database**
 
-- **Languages:** ___________
-- **Deployment:** ___________
+- **Languages:** SQL (PostgreSQL)
+- **Deployment:** Neon.tech
 
 ## 🔹 API Documentation
 
 These are the API endpoints I built: 
-1. ___________
-2. ___________
-3. ___________
+1. GET /get-newest-user — retrieves the most recently added user
+2. POST /add-one-user — saves form data to the database
+3. GET /get-all-saved-countries — returns all saved countries
+4. POST /save-one-country — saves a country
+5. POST /update-one-country-count — increments the view count for a country
 
-Here's the link to the full API documentation: __________
+Here's the link to the full API documentation: (https://github.com/ac-backend/countries-app-instructions/blob/main/version-3/api-documentation.md)
 
 ## 🗄️ Database Schema
 
 Here’s the SQL I used to create my tables:  
 
-```sql
-Put your CREATE TABLE statements here!
-If you have more than one table, include them all.
-```
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  country_name VARCHAR NOT NULL,
+  email VARCHAR NOT NULL UNIQUE,
+  bio VARCHAR
+);
+
+CREATE TABLE saved_countries (
+  country_name VARCHAR PRIMARY KEY
+);
+
+CREATE TABLE country_counts (
+  country_name VARCHAR PRIMARY KEY,
+  count INTEGER NOT NULL
+);
 
 ## 💭 Reflections
 
-**What I learned:** ___________
+**What I learned:** I learned how to connect a frontend application to a backend server and database. I now understand how API endpoints work, how to write SQL queries, and how to pass data between the frontend and backend using fetch requests.
 
-**What I'm proud of:** ___________
+**What I'm proud of:** I’m proud of building my first full-stack application from scratch and successfully connecting all the pieces together. Especially creating my own API and seeing my data persist in a real database.
 
-**What challenged me:** ___________
+**What challenged me:** Understanding how all the pieces connect (frontend → backend → database) was challenging at first. Debugging connection issues like server errors and database queries also took time to figure out.
 
 **Future ideas for how I'd continue building this project:** 
-1. ___________
-2. ___________
-3. ___________
+-Add user authentication (login/signup)
+-Add sorting and filtering to saved countries
+-Add Journal entries to saved countries so the user can write whenthey went to the country etc.
 
 ## 🙌 Credits & Shoutouts 
 
-If you used any resources for inspiration, tutorials, or documentation, you can mention them here.
-You can also give a shoutout to anyone who helped you along the way.
+REST Countries API (for country data)
+Neon.tech (for database hosting)
+AnnieCannons bootcamp curriculum
+Instructor examples from Phill and Arianna and class support

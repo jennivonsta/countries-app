@@ -13,9 +13,9 @@ import "./index.css";
 
 // Render App into the #root div in index.html
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  
 );
