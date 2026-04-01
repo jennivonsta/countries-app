@@ -57,7 +57,6 @@ Here's the link to view the live app: ___________
 
 ## 🖼️ Screenshots
 
-
 Here is where you'll include a screenshot of your project to show it off! 
 
 Instructions to include a screenshot into your README file: 
@@ -145,7 +144,5 @@ CREATE TABLE country_counts (
 
 ## 🙌 Credits & Shoutouts 
 
-REST Countries API (for country data)
-Neon.tech (for database hosting)
-AnnieCannons bootcamp curriculum
-Instructor examples from Phill and Arianna and class support
+If you used any resources for inspiration, tutorials, or documentation, you can mention them here.
+You can also give a shoutout to anyone who helped you along the way.
