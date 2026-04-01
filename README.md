@@ -56,7 +56,7 @@ The purpose of this project is to practice building a complete full-stack applic
 Here's the link to view the live app: ___________
 
 ## 🖼️ Screenshots
-
+<img width="1231" height="742" alt="Screenshot 2026-04-01 at 1 12 58 PM" src="https://github.com/user-attachments/assets/1c2ff410-ec32-47a4-9834-4210606df301" />
 Here is where you'll include a screenshot of your project to show it off! 
 
 Instructions to include a screenshot into your README file: 
