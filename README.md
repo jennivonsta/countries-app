@@ -54,6 +54,8 @@ This project is ___________
 Here's the link to view the live app: ___________
 
 ## 🖼️ Screenshots
+<img width="1231" height="742" alt="Screenshot 2026-04-01 at 1 12 58 PM" src="https://github.com/user-attachments/assets/2c087cc2-7548-41dd-b257-f351b0672e38" />
+
 
 Here is where you'll include a screenshot of your project to show it off! 
 
