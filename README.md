@@ -9,7 +9,7 @@ The purpose of this project is to practice building a complete full-stack applic
 
 ## 🚀 Live Site
 
-Here's the link to view the live app: ___________
+Here's the link to view the live app: https://countries-version-4-april-2026.netlify.app/
 
 ## 🖼️ Screenshots
 <img width="1231" height="742" alt="Screenshot 2026-04-01 at 1 12 58 PM" src="https://github.com/user-attachments/assets/1c2ff410-ec32-47a4-9834-4210606df301" />
