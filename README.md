@@ -19,18 +19,18 @@ Here is where you'll include a screenshot of your project to show it off!
 
 This is what you can do on the app: 
 
--Search for countries and filter by region
--View detailed information about each country
--Save your favorite countries
--View a list of saved countries
--Track how many times you’ve viewed each country
--Submit your name and see a personalized welcome message
+- Search for countries and filter by region
+- View detailed information about each country
+- Save your favorite countries
+- View a list of saved countries
+- Track how many times you’ve viewed each country
+- Submit your name and see a personalized welcome message
 
 ## 🛠️ Tech Stack
 
 **Frontend**
 
-- **Languages:** JavaScript React, HTML, CSS
+- **Languages:** JavaScript, HTML, CSS
 - **Framework:** React (with Vite)
 - **Deployment:** Netlify
 
@@ -38,7 +38,7 @@ This is what you can do on the app:
 
 - **Languages:** JavaScript (Node.js)
 - **Framework:** Express
-- **Deployment:** Localhost (for development)
+- **Deployment:** Render
 
 **Database**
 
@@ -60,6 +60,7 @@ Here's the link to the full API documentation: (https://github.com/ac-backend/co
 
 Here’s the SQL I used to create my tables:  
 
+```sql
 CREATE TABLE users (
   user_id SERIAL PRIMARY KEY,
   name VARCHAR NOT NULL,
