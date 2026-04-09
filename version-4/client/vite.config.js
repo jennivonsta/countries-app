@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000", // ✅ now points to backend
+        target: "https://countries-app-api-server-jenny.onrender.com", // ✅ now points to backend -key value (localhost 3000, a string) pair
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
