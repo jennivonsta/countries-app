@@ -78,6 +78,7 @@ CREATE TABLE country_counts (
   count INTEGER NOT NULL
 );
 
+```
 ## 💭 Reflections
 
 **What I learned:** I learned how to connect a frontend application to a backend server and database. I now understand how API endpoints work, how to write SQL queries, and how to pass data between the frontend and backend using fetch requests.
@@ -87,13 +88,13 @@ CREATE TABLE country_counts (
 **What challenged me:** Understanding how all the pieces connect (frontend → backend → database) was challenging at first. Debugging connection issues like server errors and database queries also took time to figure out.
 
 **Future ideas for how I'd continue building this project:** 
--Add user authentication (login/signup)
--Add sorting and filtering to saved countries
--Add Journal entries to saved countries so the user can write whenthey went to the country etc.
+- Add user authentication (login/signup)
+- Add sorting and filtering to saved countries
+- Add Journal entries to saved countries so the user can write whenthey went to the country etc.
 
 ## 🙌 Credits & Shoutouts 
 
--REST Countries API (for country data)
--Neon.tech (for database hosting)
--AnnieCannons bootcamp curriculum
--Instructors Phil & Arianna and class support
+- REST Countries API (for country data)
+- Neon.tech (for database hosting)
+- AnnieCannons bootcamp curriculum
+- Instructors Phil & Arianna and class support
