@@ -97,11 +97,12 @@ function SavedCountries({
       });
 
       if (!res.ok) {
-        throw new Error(`Add user failed: ${res.status}`);
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Could not submit profile.");
       }
 
-      // Backend returns plain text
-      await res.text();
+      // Backend returns JSON
+      await res.json();
 
       // Refresh newest user after successful POST
       await fetchNewestUser();
@@ -113,7 +114,7 @@ function SavedCountries({
       setBio("");
     } catch (err) {
       console.error(err);
-      setUserError("Could not submit profile. Please try again.");
+      setUserError(err.message);
     }
   }
 

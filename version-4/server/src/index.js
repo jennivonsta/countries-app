@@ -130,9 +130,23 @@ app.get("/get-newest-user", async (req, res) => {
 app.post("/add-one-user", async (req, res) => {
   const { name, country_name, email, bio } = req.body;
 
-  const newUser = await addOneUser(name, country_name, email, bio);
+  try {
+    const newUser = await addOneUser(name, country_name, email, bio);
+    res.json(newUser);
+  } catch (err) {
+    console.error(err);
 
-  res.json(newUser);
+    // 👇 checks for a duplicate email and sends a custom error message
+    if (err.code === "23505") {
+      return res.status(400).json({
+        message: "That email is already being used.",
+      });
+    }
+
+    res.status(500).json({
+      message: "Something went wrong.",
+    });
+  }
 });
 
 // Saved Countries
