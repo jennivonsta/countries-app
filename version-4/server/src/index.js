@@ -5,7 +5,6 @@
 import express from "express";
 import pg from "pg";
 
-
 const app = express();
 const port = 3000;
 
@@ -153,22 +152,22 @@ app.post("/save-one-country", async (req, res) => {
   res.json(savedCountry);
 });
 
+// 5. POST /unsave-one-country
+app.post("/unsave-one-country", async (req, res) => {
+  const { country_name } = req.body;
+
+  const deletedCountry = await unsaveOneCountry(country_name);
+
+  res.json(deletedCountry);
+});
+
 // Country Count
 
-// 5. POST /update-one-country-count
+// 6. POST /update-one-country-count
 app.post("/update-one-country-count", async (req, res) => {
   const { country_name } = req.body;
 
   const updatedCount = await updateOneCountryCount(country_name);
 
   res.json(updatedCount);
-});
-
-// 6. DELETE /unsave-one-country
-app.delete("/unsave-one-country", async (req, res) => {
-  const { country_name } = req.body;
-
-  const deletedCountry = await unsaveOneCountry(country_name);
-
-  res.json(deletedCountry);
 });
