@@ -100,6 +100,21 @@ async function updateOneCountryCount(country_name) {
   return result.rows[0];
 }
 
+// 6. unsaveOneCountry(country_name)
+// removes one country from the saved_countries table
+async function unsaveOneCountry(country_name) {
+  const result = await db.query(
+    `
+    DELETE FROM saved_countries
+    WHERE country_name = $1
+    RETURNING *;
+    `,
+    [country_name],
+  );
+
+  return result.rows[0];
+}
+
 // ---------------------------------
 // API Endpoints
 // ---------------------------------
@@ -147,4 +162,13 @@ app.post("/update-one-country-count", async (req, res) => {
   const updatedCount = await updateOneCountryCount(country_name);
 
   res.json(updatedCount);
+});
+
+// 6. DELETE /unsave-one-country
+app.delete("/unsave-one-country", async (req, res) => {
+  const { country_name } = req.body;
+
+  const deletedCountry = await unsaveOneCountry(country_name);
+
+  res.json(deletedCountry);
 });
